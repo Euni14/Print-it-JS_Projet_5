@@ -25,3 +25,17 @@ var arrowright = document.getElementById("arrowright");
 arrowright.addEventListener("click",function(){
 	alert("droite");
 });
+/*les bullet points et
+différencier le point qui signale la diapositive en cours de visionnage*/
+let dotscontainer = document.getElementById("dotscontainer");
+for (var i = 1; i <= slides.length; i++) {
+   var spantemporary = document.createElement("span");
+   if(i==1)	{
+	spantemporary.classList.add("dot");
+	spantemporary.classList.add("dot_selected");	
+   }
+   else{
+	spantemporary.classList.add("dot");
+   }
+   dotscontainer.appendChild(spantemporary);
+}
