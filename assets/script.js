@@ -17,76 +17,113 @@ const slides = [
     tagLine: "Autocollants <span>avec découpe laser sur mesure</span>",
   },
 ];
-/* image courante*/
-let globalImageIndex = 1;
+// etape 3 compter nombres d'images
+// servir pour les boucles
+const slidesLength = slides.length;
 
-/* teste des event listener sur les flêches*/
+// etape 2
+////////// teste des event listener sur les flêches===================
 
-var arrowleft = document.getElementById("arrowleft");
-arrowleft.addEventListener("click", function () {
-  //	alert("gauche");
-  /*vers la gauche, on soustrait pour avoir l'image courante*/
-  globalImageIndex = globalImageIndex - 1;
-
-  /* affiché l'image */
-  let banner = document.getElementById("bannerimg");
-  banner.src =
-    "./assets/images/slideshow/" + slides[globalImageIndex - 1].image;
-
-  /* mettre le bullet point à l'image*/
-  let collection = document.getElementById("dotscontainer").children;
-  /*Parcour les bullets points*/
-  for (var i = 1; i <= collection.length; i++) {
-    if (i == globalImageIndex) {
-      /* Ajouter la classe dot_selected sur l'image courante*/
-      collection[i - 1].classList.add("dot_selected");
-    } else {
-      /* supprimer la classe dot_selected les autres image*/
-      collection[i - 1].classList.remove("dot_selected");
-    }
-  }
-  /*affichage tagline */
-  let title = document.getElementById("title");
-  title.innerHTML = slides[globalImageIndex - 1].tagLine;
+/*const arrowleft = document.getElementById("arrowleft");
+arrowleft.addEventListener("click", function(){
+	alert("gauche");
 });
+const arrowright = document.getElementById("arrowright");
+arrowright.addEventListener("click",function(){
+	alert("droite");
+});*/
 
-var arrowright = document.getElementById("arrowright");
-arrowright.addEventListener("click", function () {
-  //	alert("droite");
-  /*vers la droite, on additionne pour avoir l'image courante*/
-  globalImageIndex = globalImageIndex + 1;
-
-  /* affiché l'image */
-  let banner = document.getElementById("bannerimg");
-  banner.src =
-    "./assets/images/slideshow/" + slides[globalImageIndex - 1].image;
-
-  /* mettre le bullet point à l'image*/
-  let collection = document.getElementById("dotscontainer").children;
-  /*Parcour les bullets points*/
-  for (var i = 1; i <= collection.length; i++) {
-    if (i == globalImageIndex) {
-      /* Ajouter la classe dot_selected sur l'image courante*/
-      collection[i - 1].classList.add("dot_selected");
-    } else {
-      /* supprimer la classe dot_selected les autres image*/
-      collection[i - 1].classList.remove("dot_selected");
-    }
-  }
-  /*affichage tagline */
-  let title = document.getElementById("title");
-  title.innerHTML = slides[globalImageIndex - 1].tagLine;
-});
-/*les bullet points et
-différencier le point qui signale la diapositive en cours de visionnage*/
-let dotscontainer = document.getElementById("dotscontainer");
-for (var i = 1; i <= slides.length; i++) {
-  var spantemporary = document.createElement("span");
-  if (i == 1) {
+//etape-3 ajout les bullet points=====================================
+const dotscontainer = document.getElementById("dotscontainer");
+for (let i = 0; i < slidesLength; i++) {
+  let spantemporary = document.createElement("span"); //créer un span pour représenter les bullet
+  if (i === 0) {
     spantemporary.classList.add("dot");
     spantemporary.classList.add("dot_selected");
   } else {
     spantemporary.classList.add("dot");
   }
-  dotscontainer.appendChild(spantemporary);
+  dotscontainer.appendChild(spantemporary); // ajouter comme enfant pour être dans le div dots
 }
+
+//étape-4 on change le bullet point actif au suivant===================
+/*let globalImageIndex = 0;
+const banner = document.getElementById("bannerimg");
+const arrowleft = document.getElementById("arrowleft");
+arrowleft.addEventListener("click", function () {
+  globalImageIndex = globalImageIndex - 1;
+
+  banner.src = "./assets/images/slideshow/" + slides[globalImageIndex].image;
+  let collection = document.getElementById("dotscontainer").children;
+  for (let i = 0; i < collection.length; i++) {
+    if (i === globalImageIndex) {
+      collection[i].classList.add("dot_selected");
+    } else {
+      collection[i].classList.remove("dot_selected");
+    }
+  }
+  let titre = document.getElementById("titre");
+  titre.innerHTML = slides[globalImageIndex].tagLine;
+});
+
+const arrowright = document.getElementById("arrowright");
+arrowright.addEventListener("click", function () {
+  globalImageIndex = globalImageIndex + 1;
+
+  banner.src = "./assets/images/slideshow/" + slides[globalImageIndex].image;
+  let collection = document.getElementById("dotscontainer").children;
+  for (let i = 0; i < collection.length; i++) {
+    if (i === globalImageIndex) {
+      collection[i].classList.add("dot_selected");
+    } else {
+      collection[i].classList.remove("dot_selected");
+    }
+  }
+  let titre = document.getElementById("titre");
+  titre.innerHTML = slides[globalImageIndex].tagLine;
+});*/
+
+//étape-5 correction des derniers bugs================================
+//carrousel tourne en boucle indéfiniment
+let globalImageIndex = 0;
+const banner = document.getElementById("bannerimg");
+const arrowleft = document.getElementById("arrowleft");
+arrowleft.addEventListener("click", function () {
+  globalImageIndex = globalImageIndex - 1;
+  if (globalImageIndex === -1) {
+    globalImageIndex = slidesLength - 1;
+  }
+
+  banner.src = "./assets/images/slideshow/" + slides[globalImageIndex].image;
+  let collection = document.getElementById("dotscontainer").children;
+  for (let i = 0; i < collection.length; i++) {
+    if (i === globalImageIndex) {
+      collection[i].classList.add("dot_selected");
+    } else {
+      collection[i].classList.remove("dot_selected");
+    }
+  }
+  let titre = document.getElementById("titre");
+  titre.innerHTML = slides[globalImageIndex].tagLine;
+});
+
+const arrowright = document.getElementById("arrowright");
+arrowright.addEventListener("click", function () {
+  globalImageIndex = globalImageIndex + 1;
+
+  if (globalImageIndex === slidesLength) {
+    globalImageIndex = 0;
+  }
+
+  banner.src = "./assets/images/slideshow/" + slides[globalImageIndex].image;
+  let collection = document.getElementById("dotscontainer").children;
+  for (let i = 0; i < collection.length; i++) {
+    if (i === globalImageIndex) {
+      collection[i].classList.add("dot_selected");
+    } else {
+      collection[i].classList.remove("dot_selected");
+    }
+  }
+  let titre = document.getElementById("titre");
+  titre.innerHTML = slides[globalImageIndex].tagLine;
+});
