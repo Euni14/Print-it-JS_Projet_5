@@ -20,7 +20,7 @@ const slides = [
 // etape 3 compter nombres d'images
 // servir pour les boucles
 const slidesLength = slides.length;
-
+//=========================================================================================
 // etape 2
 ////////// teste des event listener sur les flêches===================
 
@@ -33,6 +33,7 @@ arrowright.addEventListener("click",function(){
 	alert("droite");
 });*/
 
+//=========================================================================================
 //etape-3 ajout les bullet points=====================================
 const dotscontainer = document.getElementById("dotscontainer");
 for (let i = 0; i < slidesLength; i++) {
@@ -46,11 +47,13 @@ for (let i = 0; i < slidesLength; i++) {
   dotscontainer.appendChild(spantemporary); // ajouter comme enfant pour être dans le div dots
 }
 
+//==========================================================================================
 //étape-4 on change le bullet point actif au suivant===================
 /*let globalImageIndex = 0;
 const banner = document.getElementById("bannerimg");
 const arrowleft = document.getElementById("arrowleft");
 arrowleft.addEventListener("click", function () {
+  
   globalImageIndex = globalImageIndex - 1;
 
   banner.src = "./assets/images/slideshow/" + slides[globalImageIndex].image;
@@ -68,6 +71,7 @@ arrowleft.addEventListener("click", function () {
 
 const arrowright = document.getElementById("arrowright");
 arrowright.addEventListener("click", function () {
+  
   globalImageIndex = globalImageIndex + 1;
 
   banner.src = "./assets/images/slideshow/" + slides[globalImageIndex].image;
@@ -82,7 +86,7 @@ arrowright.addEventListener("click", function () {
   let titre = document.getElementById("titre");
   titre.innerHTML = slides[globalImageIndex].tagLine;
 });*/
-
+//===============================================================================================
 //étape-5 correction des derniers bugs================================
 //carrousel tourne en boucle indéfiniment
 let globalImageIndex = 0;
@@ -90,6 +94,7 @@ const banner = document.getElementById("bannerimg");
 const arrowleft = document.getElementById("arrowleft");
 arrowleft.addEventListener("click", function () {
   globalImageIndex = globalImageIndex - 1;
+
   if (globalImageIndex === -1) {
     globalImageIndex = slidesLength - 1;
   }
